@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
-
-const Conversas = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
-);
-const Contatos = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
-);
+import { StyleSheet, Dimensions } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
+import TabBarMenu from './TabBarMenu';
+import Conversas from './Conversas';
+import Contatos from './Contatos';
 
 export default class Principal extends Component {
   state = {
@@ -18,6 +14,8 @@ export default class Principal extends Component {
     ],
   };
 
+  _renderTabBar = props => <TabBarMenu {...props} />
+
   render() {
     return (
       <TabView
@@ -26,6 +24,7 @@ export default class Principal extends Component {
           first: Conversas,
           second: Contatos,
         })}
+        renderTabBar={this._renderTabBar}
         onIndexChange={index => this.setState({ index })}
         initialLayout={{ width: Dimensions.get('window').width }}
       />
